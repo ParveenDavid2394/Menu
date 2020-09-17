@@ -73,11 +73,30 @@ const menu = [
   },
 ];
 
-
+// get target items
 const sectionCenter = document.querySelector('.section-center');
+const buttons = document.querySelectorAll('.filter-btn');
 
+// load items
 window.addEventListener('DOMContentLoaded', displayMenuItems(menu));
 
+// filter items
+buttons.forEach( (button) => {
+	button.addEventListener('click', (e) => {
+		const category = e.currentTarget.dataset.id;
+
+		const menuCategory = menu.filter( (menuItem) => {
+			if(menuItem.category === category){
+				return menuItem;
+			}
+		});
+		if (category === 'all') {
+			displayMenuItems(menu);
+		} else {
+			displayMenuItems(menuCategory);
+		}
+	})
+})
 
 function displayMenuItems(menuItems) {
   let display = menuItems.map( (item) => {
